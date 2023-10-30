@@ -1,0 +1,973 @@
+exercise1
+
+fibonacci series
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+namespace exercise1
+{
+ class MainClass
+ {
+ public static void Main(string[] args)
+ {
+ int f1, f2;
+ Console.WriteLine("Enter the number of terms:");
+ int n = Convert.ToInt32(Console.ReadLine());
+ f1 = -1;
+ f2 = 1;
+ Console.WriteLine("Fibonacci Series is ");
+ for (int i = 0; i < n; i++)
+ {
+ int f3 = f1 + f2;
+ Console.WriteLine(f3);
+ f1 = f2;
+ f2 = f3;
+ }
+ }
+ }
+}
+
+
+factorial of a number
+using System;
+public class FactorialExample
+{
+    public static void Main(string[] args)
+    {
+        int i, fact = 1, number;
+        Console.Write("Enter any Number: ");
+        number = int.Parse(Console.ReadLine());
+        for (i = 1; i <= number; i++)
+        {
+            fact = fact * i;
+        }
+        Console.Write("Factorial of " + number + " is: " + fact);
+    } 
+}
+
+pascal triangle
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace pascal
+{
+    class MainClass
+    {
+       public static void Main(string[] args)
+        {
+            Console.WriteLine("Pascal Triangle\n");
+            Console.WriteLine("Enter the number of rows: ");
+            String input = System.Console.ReadLine();
+            int n = Convert.ToInt32(input);
+            Console.WriteLine(" ");
+            for (int y = 0; y < n; y++)
+            {
+                int c = 1;
+                for (int q = 0; q < n - y; q++)
+                {
+                    Console.Write("    ");
+                }
+                for (int x = 0; x <= y; x++)
+                {
+                    Console.Write("       {0}", c);
+                    c = c * (y - x) / (x + 1);
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        } 
+    }
+}
+
+
+operator overloading
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace overloading
+{
+    class complex
+    {
+        private int x, y;
+        public complex() { }
+        public complex(int i, int j)
+        {
+            x = i;
+            y = j;
+        }
+        public void showXY()
+        {
+            Console.WriteLine(Convert.ToString(x) + " " + Convert.ToString(y));
+        }
+        public static complex operator -(complex c)
+        {
+            complex temp = new complex();
+            temp.x = -c.x;
+            temp.y = -c.y;
+            return temp;
+        }
+        public static complex operator +(complex c1, complex c2)
+        {
+            complex temp = new complex();
+            temp.x = c1.x + c2.x;
+            temp.y = c1.y + c2.y;
+            return temp;
+        }
+
+    }
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("\nOperator Overloading\n");
+
+            Console.WriteLine("Enter a and b:");
+            int a = Convert.ToInt32(Console.ReadLine());
+            int b = Convert.ToInt32(Console.ReadLine());
+            complex c1 = new complex(a, b);
+            Console.WriteLine("Before overloading");
+            c1.showXY();
+            complex c2 = new complex();
+            Console.WriteLine("After overloading");
+            c2 = -c1;
+            c2.showXY();
+
+            Console.WriteLine("Enter c and d:");
+            int c = Convert.ToInt32(Console.ReadLine());
+            int d = Convert.ToInt32(Console.ReadLine());
+            complex c3 = new complex(c, d);
+            Console.WriteLine("Before overloading");
+            c3.showXY();
+            complex c4 = new complex();
+            Console.WriteLine("After overloading");
+            c4 = c1 + c3;
+            c4.showXY();
+            Console.ReadLine();
+        }
+    }
+}
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+exercise2
+
+delegates
+using System;
+using System.IO;
+delegate void delegatewriter(string message);
+class delgwriter
+{
+    StreamWriter w;
+    public delgwriter(string path)
+    {
+        w = File.CreateText(path);
+    }
+    public void display(string msg)
+    {
+        w.WriteLine(msg);
+    }
+    public void Flush()
+    {
+        w.Flush();
+    }
+    public void Close()
+    {
+        w.Close();
+    }
+}
+class Test
+{
+    static delegatewriter delgwri;
+    static void display(string s)
+    {
+        Console.WriteLine(s);
+    }
+    static void Main(string[] arg)
+    {
+        delgwriter x = new delgwriter("log.txt");
+        delgwri += new delegatewriter(display);
+        delgwri += new delegatewriter(x.display);
+        delgwri("C");
+        delgwri("C++");
+        delgwri("Java");
+        x.Flush();
+        x.Close();
+        Console.Read();
+    }
+}
+
+
+multicast delegate
+using System;
+delegate void dele(int a, int b);
+public class Oper
+{
+    public static void Add(int a, int b)
+    {
+        Console.WriteLine("{0} + {1} = {2}", a, b, a + b);
+    }
+ 
+   public static void Sub(int a, int b)
+    {
+        Console.WriteLine("{0} - {1} = {2}", a, b, a - b);
+    }
+}
+public class program
+{
+    static void Main()
+    {
+        dele del = new dele(Oper.Add);
+        del += new dele(Oper.Sub);
+        del(4, 2);
+        del -= new dele(Oper.Sub);
+        del(1, 9);
+        Console.Read();
+    }
+}
+
+Output:
+                 4 + 2 = 6
+                 4 - 2 = 2
+                 1 + 9 = 10
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+exercise3
+
+stack
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace ConsoleApplication1
+{
+class Program
+{
+static void Main(string[] args)
+{         
+stack st = new stack();
+while (true)
+{
+Console.Clear();
+Console.WriteLine("\nStack MENU(size -- 10)");
+Console.WriteLine("1. Add an element");
+Console.WriteLine("2. See the Top element.");
+Console.WriteLine("3. Remove top element.");
+Console.WriteLine("4. Display stack elements.");
+Console.WriteLine("5. Exit");
+Console.Write("Select your choice: ");
+int choice = Convert.ToInt32(Console.ReadLine());
+switch (choice)
+   {
+     case 1:
+         Console.WriteLine("Enter an Element : ");
+         st.Push(Console.ReadLine());
+         break;
+   
+   case 2: Console.WriteLine("Top element is: {0}", st.Peek());
+                break;
+  
+   case 3: Console.WriteLine("Element removed: {0}", st.Pop());
+               break;
+  
+   case 4: st.Display();
+               break;
+  
+     case 5: System.Environment.Exit(1);
+                  break;
+     }
+     Console.ReadKey();
+    }
+  }
+}
+   
+interface StackADT
+{
+       Boolean isEmpty();
+       void Push(Object element);
+       Object Pop();
+       Object Peek();
+      void Display();
+}
+
+class stack : StackADT
+  {
+       private int StackSize;
+       public int StackSizeSet
+       {
+          get { return StackSize; }
+          set { StackSize = value; }
+      }
+
+   public int top;
+   Object[] item;
+   public stack()
+     {
+         StackSizeSet = 10;
+         item = new Object[StackSizeSet];
+         top = -1;
+      }
+
+public stack(int capacity)
+{
+     StackSizeSet = capacity;
+     item = new Object[StackSizeSet];
+    top = -1;
+}
+
+public bool isEmpty()
+{
+     if (top == -1) return true;
+     return false;
+}
+
+public void Push(object element)
+{
+    if (top == (StackSize - 1))
+      {
+          Console.WriteLine("Stack is full!");
+      }
+   else
+      {
+           item[++top] = element;
+           Console.WriteLine("Item pushed successfully!");
+       }
+}
+
+public object Pop()
+{
+     if (isEmpty())
+       {
+          Console.WriteLine("Stack is empty!");
+           return "No elements";
+       }
+    else
+     {
+       return item[top--];
+      }
+  }
+
+public object Peek()
+{
+       if (isEmpty())
+        {
+           Console.WriteLine("Stack is empty!");
+            return "No elements";
+        }
+     else
+       {
+         return item[top];
+        }
+}
+    
+public void Display()
+{
+       for (int i = top; i > -1; i--)
+         {
+   
+            Console.WriteLine("Item {0}: {1}", (i + 1), item[i]);
+       }
+     }
+   }
+}
+
+
+queue
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Queue
+{
+    class Program
+    {
+       static void Main(string[] args)
+        {
+            Queue<string> queue1 = new Queue<string>();
+            queue1.Enqueue(" RobinHood ");                    
+            queue1.Enqueue(" Sha ");
+            queue1.Enqueue(" TheKiller ");
+            queue1.Enqueue(" MockingBird ");
+
+            Console.WriteLine("The elements in the queue are:");
+
+
+            foreach (string s in queue1)
+            {
+                Console.WriteLine(s);
+            }
+            queue1.Dequeue();            
+            queue1.Dequeue();                
+
+            Console.WriteLine("After removal the elements in the queue are:");
+            foreach (string s in queue1)
+            {
+                Console.WriteLine(s);
+            }
+        }
+    }
+}
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+exercise4
+
+
+Anonymous Method with Lambda & Delegate
+using System;
+namespace AnMethod
+{
+	delegate int del(int x,int y);
+	class MainClass
+	{
+		public static void Main (string[] args)
+		{
+			del d1 = (x,y) => x * y;
+			del d2 = (x,y) => {return x * y;};
+			del d3=delegate(int x,int y){return x*y;};
+			int z1=d1(2,3);
+			int z2=d2(3,3);
+			int z3=d3(4,3);
+			Console.WriteLine ("The value of z1:{0}", z1);
+			Console.WriteLine ("The value of z2:{0}", z2);
+			Console.WriteLine ("The value of z3:{0}", z3);
+		}
+	}
+}
+
+
+To Search from collection using Lambda Expression
+using System;
+using System.Collections.Generic;
+namespace Search
+{
+	class MainClass
+	{
+		public static void Main (string[] args)
+		{
+			List<int> lst=new List<int>();
+			lst.Add(100);
+			lst.Add(200);
+			lst.Add(300);
+			int value=lst.Find(m =>m.Equals(200));
+			Console.WriteLine (value);
+		}
+	}
+}
+
+Finding all Even Number from Collection using Lambda Expression
+using System;
+using System.Collections.Generic;
+namespace even
+{
+	class MainClass
+	{
+		public static void Main (string[] args)
+		{
+			List<int> numbers = new List<int>{ 1, 2, 3, 4, 5, 6, 7 };
+			var evens = numbers.FindAll (n => n % 2 == 0);
+			Console.WriteLine ("The Even Numbers are:");
+			foreach (int a in evens) 
+			{
+				Console.WriteLine (a);
+			}
+		}
+	}
+}
+
+
+
+
+Overload of the standard query Operation using Lambda Expression
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+
+namespace query
+{
+	class MainClass
+	{
+  	  public static void Main (string[] args)
+    	  {
+	   string[] digits = { "zero", "one", "two", "three", "four", "five","six", "seven", "eight", "nine" };
+    	   var sd1=digits.Where((digit,index) => digit.Length < index);
+
+			foreach(var SD in sd1)
+			{
+			Console.WriteLine (SD);
+			}
+			List<string> sd2=new List<string>();
+			for(var i=0;i<digits.Length;i++)
+			{
+				if(digits[i].Length < i)
+					sd2.Add(digits[i]);
+			}
+			foreach(var d in sd2)
+			{
+				Console.WriteLine(d);
+			}
+		}
+	}
+}
+
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+exercise5
+
+latebinding
+
+using System; namespace binding 
+{  public class Shape 
+  {    int a;    public int x  
+    {      get  
+      { 
+ 	return this.a; 
+      }      set 
+      { 
+ 	this.a = value; 
+      } 
+     } 
+  public int y{ get; private set; }   public int Height{ get; set; }   public int Width{ get; set; } 
+  public virtual void Draw() 
+   { 
+    Console.WriteLine ("Performing Base Class Drawing Tasks"); 
+   } 
+  } 
+ 
+class Circle:Shape 
+ { 
+  public override void Draw () 
+   { 
+    Console.WriteLine ("Drawing a Circle"); 
+    base.Draw (); 
+    } 
+  } 
+class Rectangle:Shape 
+{  public override void Draw() 
+  { 
+   Console.WriteLine ("Drawing a Rectangle");    base.Draw (); 
+   } 
+ } 
+ 
+class Triangle:Shape 
+{ 
+ public override void Draw() 
+ { 
+  Console.WriteLine ("Drawing a Triangle");   base.Draw (); 
+ } } 
+ 
+class MainClass 
+{  public static void Main (string[] args)  { 
+   System.Collections.Generic.List<Shape> shapes = new System.Collections.Generic.List<Shape> ();   shapes.Add (new Rectangle ());   shapes.Add(new Triangle());   shapes.Add(new Circle()); 
+  foreach (Shape s  in shapes) 
+   { 
+    s.Draw (); 
+   } 
+                /*Circle c = new Circle ();                      c.Draw (); 
+                     Rectangle r = new Rectangle ();                       r.Draw (); 
+                      Triangle t = new Triangle ();                        t.Draw ();*/ 
+ 
+  Shape n=new Shape();   n.x = 11; 
+  Console.WriteLine (n.x); 
+  Console.ReadKey (); 
+  } 
+ } } 
+
+
+virtual method
+
+)   using System; namespace VirtualMethods 
+{  public class MyControl 
+ {   protected int top;   protected int left; 
+  public MyControl(int top,int left) 
+   {    this.top = top;    this.left = left; 
+  } 
+  public virtual void DrawWindow () 
+  { 
+    Console.WriteLine ("My Control:Drawing Control at {0},{1}", top, left); 
+   } 
+  } 
+ 
+ public class ListBox:MyControl 
+ { 
+  private string listBoxContents; 
+  public ListBox(int top,int left,string Contents):base(top,left) 
+  { 
+   listBoxContents = Contents; 
+  } 
+ 
+  public override void DrawWindow() 
+  { 
+   base.DrawWindow (); 
+   Console.WriteLine ("Writing String to the ListBox:{0}", listBoxContents); 
+   } 
+  } 
+ 
+ public class Button:MyControl 
+  { 
+   public Button(int top,int left):base(top,left) 
+   {} 
+ 
+   public override void DrawWindow() 
+   { 
+    base.DrawWindow (); 
+    Console.WriteLine ("Drawing a Button at {0},{1}\n", top, left); 
+   } 
+  } 
+ 
+class MainClass 
+{  public static void Main (string[] args) 
+  { 
+   MyControl win = new MyControl (1, 2); 
+   ListBox lb = new ListBox (3, 4, "Stand Alone ListBox"); 
+   Button b = new Button (5, 6);    win.DrawWindow ();    lb.DrawWindow ();    b.DrawWindow (); 
+   MyControl[] winArray = new MyControl[3]; 
+   winArray [0] = new MyControl (1, 2); 
+   winArray [1] = new ListBox (3, 4, "ListBox in Array");    winArray [2] = new Button (5, 6); 
+   for (int i = 0; i < 3; i++)  
+   { 
+    winArray [i].DrawWindow (); 
+   } 
+  } 
+ } } 
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+exercise6 
+
+linq
+
+random even number using parallel query
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class RandomEvens
+{
+    static void Main(string[] args)
+    {
+        IEnumerable<int> Numbers = ((ParallelQuery<int>)ParallelEnumerable.Range(1,20))
+        .Where(num => num % 2 == 0)
+        .Select(val => val);
+
+        foreach (int evens in Numbers) 
+        { 
+            Console.WriteLine(evens); 
+        }
+    }
+}
+
+print the employees whose name contains less than 4 characters using LINQ
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class RandomEvens
+{
+    static void Main(string[] args)
+    {
+        IEnumerable<int> Numbers = ((ParallelQuery<int>)ParallelEnumerable.Range(1,20))
+        .Where(num => num % 2 == 0)
+        .Select(val => val);
+
+        foreach (int evens in Numbers) 
+        { 
+            Console.WriteLine(evens); 
+        }
+    }
+}
+
+to print the numbers greater than 777 in an integer array using LINQ
+
+using System;
+using System.Linq;
+
+class Number
+{
+    static void Main()
+    {
+        int[] intArr = { 930, 456, 755, 012, 345, 567, 890 };
+        var nums = from num in intArr
+                   where num > 500
+                   select num;
+
+        Console.WriteLine("Numbers are :");
+        foreach (int n in nums)
+        {
+            Console.Write("{0} ", n);
+        }
+        Console.WriteLine();
+    }
+}
+
+
+employees whose salary between 6000 and 8000 using LINQ
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+public class Employee
+{
+    int ID;
+    string Name;
+    int Age;
+    int Salary;
+
+
+    public override string ToString()
+    {
+        return ID + " " + Name + " " + Age + " " + Salary;
+    }
+
+    static void Main(string[] args)
+    {
+        List<Employee> employees = new List<Employee>()
+        {
+             new Employee {ID=101,   Name="kenny"    ,Age=23, Salary=4000},
+             new Employee {ID=102,   Name="sanji"    ,Age=24, Salary=6000},
+             new Employee {ID=103,   Name="robin"    ,Age=25, Salary=7000},
+             new Employee {ID=104,   Name="luffy"    ,Age=26, Salary=9000},
+        };
+
+        IEnumerable<Employee> Query =
+            from emp in employees
+            where emp.Salary >= 6000 && emp.Salary <= 8000
+            select emp;
+
+        Console.WriteLine("ID  Name  Age Salary");
+        Console.WriteLine("=====================");
+        foreach (Employee s in Query)
+        {
+            Console.WriteLine(s.ToString());
+        }
+        Console.WriteLine("=====================");
+    }
+}
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+exercise7
+
+C-SHARP Programs for LINQ Join method and query.
+Source Code:
+
+using System;
+using System.Linq;
+using System.Collections.Generic;
+public class Employee
+{
+    public int      ID;
+    public int      Salary;
+    public int      DEPT_ID ;
+    public string   Name;
+}
+public class Department
+{
+   public int DEPT_ID;
+   public string DEPT_Name;
+}
+public class JoinDemo
+{
+ static void Main(string[] args)
+ {
+   List<Employee> employees = new List<Employee>()
+   {
+     new Employee {ID=101, Name="RaavanVijay ", Salary=4000,DEPT_ID=101}, 
+     new Employee {ID=102, Name="PrinceVijay", Salary=3800,DEPT_ID=102}, 
+     new Employee {ID=103, Name="VijayMahas”, Salary=3500,DEPT_ID=103},
+     new Employee {ID=104, Name="VijayAbimanyu", Salary=2000, DEPT_ID=101},          
+   new Employee {ID=105, Name="VijayRoshan", Salary=7000,DEPT_ID=102},
+ new Employee {ID=106, Name="VijayRajendran”, Salary=5000,DEPT_ID=103},
+   };
+   List<Department> departments = new List<Department>()
+   {
+     new Department {DEPT_ID=101, DEPT_Name="HR" },
+     new Department {DEPT_ID=102, DEPT_Name="ACCOUNTS" },
+     new Department {DEPT_ID=103, DEPT_Name="SALES" },
+   };
+   var Result = employees.Join(departments, emp => emp.DEPT_ID ,
+                           dept => dept.DEPT_ID, 
+                           (emp, dept) => new 
+                           {
+                               ID      = emp.ID     ,
+                               Name    = emp.Name   ,
+                               Salary  = emp.Salary ,
+                               DeptName = dept.DEPT_Name
+
+                           }).ToList();
+
+                                                                       Console.WriteLine(“EmployeeDetails:”);
+        foreach (var e in Result)
+        {
+          Console.WriteLine("\tID: "+e.ID+", Name: "+e.Name+", Salary: "+e.Salary+", 
+         Department: "+e.DeptName);
+        }
+    }
+}
+
+OUTPUT:
+
+Employee Details:
+	ID: 101, Name: RaavanVijay , Salary: 4000,Department: HR
+	ID: 102, Name: PrinceVijay, Salary: 3800,Department: ACCOUNTS
+	ID: 103, Name: VijayMahas, Salary: 3500,Department: SALES
+	ID: 104, Name: VijayAbimanyu, Salary: 2000,Department: HR
+	ID: 105, Name: VijayRoshan, Salary: 7000,Department: ACCOUNTS
+	ID: 106, Name: VijayRajendran, Salary: 5000,Department: SALES
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+exercise8
+
+
+
+addition of 2 numbers
+
+
+using System;
+using System.Windows.Forms;
+
+namespace demo12{
+	public partial class Form1 : Form{
+		public Form1(){
+			InitializeComponent();
+		}
+		private void button1_Click(object sender, EventArgs e){
+			string data1 = textBox1.Text;
+			string data2 = textBox2.Text;
+			int a1 = int.Parse(data1);
+			int a2 = int.Parse(data2);
+			int a3 = a1+a2;
+			textBox3.Text = a3.ToString();
+		}
+	}
+}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+exercise9
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+exercise10
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" 
+Inherits="WebApplication1._Default" %> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/ DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head runat="server"> 
+<title></title> 
+</head> 
+<body> 
+<form id="form1" runat="server"> 
+<div> 
+<table> 
+<tr> 
+         <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EB Bill Calculation <br /> 
+<br /> 
+</th> 
+</tr> 
+<tr> 
+<td><asp:Label ID="l1" runat="server" >Enter ID</asp:Label></td> 
+<td><asp:TextBox ID="t1" runat="server"></asp:TextBox></td> </tr> 
+<tr> 
+<td><asp:Label ID="l2" runat="server" >Enter Name</asp:Label></td> 
+<td><asp:TextBox ID="t2" runat="server"></asp:TextBox></td> </tr> 
+<tr> 
+<td><asp:Label ID="l3" runat="server" >Enter CMR</asp:Label></td> 
+<td><asp:TextBox ID="t3" runat="server"></asp:TextBox></td> </tr> 
+<tr> 
+<td><asp:Label ID="l4" runat="server" >Enter PMR</asp:Label></td> 
+<td><asp:TextBox ID="t4" runat="server"></asp:TextBox></td> </tr> 
+<tr> 
+<td><asp:Label ID="l6" runat="server" >Amount to be paid</asp:Label></td>     <td><asp:TextBox ID="t6" runat="server"></asp:TextBox></td> </tr> 
+<td> 
+<asp:Button ID="b3" runat="server" Text="CALCULATE" OnClick="b3_Click" style="height: 26px" /> 
+</td> 
+</tr> 
+</table> 
+</div> 
+</form> 
+</body> 
+</html> 
+ 
+
+
+default.aspx.cs: 
+
+using System; 
+using System.Collections.Generic; using System.Linq; using System.Web; using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+namespace WebApplication1 
+{ 
+    public partial class _Default : System.Web.UI.Page 
+    { 
+        int prev, curr, conu; 
+        double chg = 0, sub = 0, amt = 0; 
+ 
+        public object MessageBox { get; private set; } 
+ 
+        protected void Page_Load(object sender, EventArgs e) 
+        { 
+        } 
+        protected void b3_Click(object sender, EventArgs e) 
+        { 
+            Console.Write("\n\n"); 
+            Console.Write("Calculate Electricity Bill:\n"); 
+            Console.Write(" 	");             Console.Write("\n\n");             prev = int.Parse(t4.Text);             curr = int.Parse(t3.Text);             conu = curr - prev; 
+            if (conu < 0) 
+                Response.Write("INVALID READING");             else 
+            { 
+                if (conu <= 100) 
+                { 
+                    chg = 1.20 * conu; 
+                    sub = 0; 
+                } 
+                else if (conu >= 200 && conu < 500) 
+                { 
+                    chg = 1.50 * conu; 
+                    sub = 20; 
+                } 
+                else if (conu >= 500 && conu < 600) 
+                { 
+                    chg = 100 + 200 + ((conu - 200) * 3);                     sub = 30; 
+                } 
+                else if (conu >= 600) 
+                { 
+                    chg = 100 + 350 + 1380 + ((conu - 500) * 6.60);                     sub = 50; 
+                } 
+                amt = sub + chg;                 t6.Text = amt + "";                 string message = t6.Text; 
+                string script = $"alert('{message}');"; 
+                ClientScript.RegisterStartupScript(this.GetType(), "MessageBox", script, true); 
+            } 
+        } 
+    } } 
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
